@@ -3,11 +3,22 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ReadThreadsTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
+    
+    private $thread;
+    
+    
+    public function setUp()
+    {
+        parent::setUp();
+        
+        $this->thread = factory('App\Thread')->create();
+    }
+    
     /**
      * A Test
      * 
@@ -15,12 +26,9 @@ class ReadThreadsTest extends TestCase
      * @return void
      */
     public function a_user_can_browse_threads()
-    {
-        $thread = factory('App\Thread')->create();
-        
+    {   
         $response = $this->get('/threads');
-        $response->assertSee($thread->title);
-
+        $response->assertSee($this->thread->title);
     }
 
     /**
@@ -30,10 +38,8 @@ class ReadThreadsTest extends TestCase
      * @return void
      */
     public function a_user_can_browse_a_single_thread()
-    {
-        $thread = factory('App\Thread')->create();
-
-        $response = $this->get('/threads/' . $thread->id);
-        $response->assertSee($thread->title);
+    {   
+        $response = $this->get('/threads/' . $this->thread->id);
+        $response->assertSee($this->thread->title);
     }
 }
