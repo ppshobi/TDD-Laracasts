@@ -45,9 +45,9 @@ class ThreadsController extends Controller
      * @param  \App\Threads  $threads
      * @return \Illuminate\Http\Response
      */
-    public function show(Threads $threads)
+    public function show(Thread $thread)
     {
-        //
+        return view('threads.show', compact('thread'));
     }
 
     /**
@@ -56,7 +56,7 @@ class ThreadsController extends Controller
      * @param  \App\Threads  $threads
      * @return \Illuminate\Http\Response
      */
-    public function edit(Threads $threads)
+    public function edit(Thread $thread)
     {
         //
     }
@@ -68,7 +68,7 @@ class ThreadsController extends Controller
      * @param  \App\Threads  $threads
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Threads $threads)
+    public function update(Request $request, Thread $thread)
     {
         //
     }
@@ -79,7 +79,7 @@ class ThreadsController extends Controller
      * @param  \App\Threads  $threads
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Threads $threads)
+    public function destroy(Thread $thread)
     {
         //
     }
