@@ -42,4 +42,18 @@ class ReadThreadsTest extends TestCase
         $response = $this->get('/threads/' . $this->thread->id);
         $response->assertSee($this->thread->title);
     }
+
+    /**
+     * A Test
+     * 
+     * @test
+     * @return void
+     */
+    public function user_can_see_replies_associated_with_a_thread()
+    {   
+        $reply = factory('App\Reply')->create(['thread_id' => $this->thread->id]);
+
+        $response = $this->get('/threads/' . $this->thread->id);
+        $response->assertSee($reply->body);
+    }
 }
