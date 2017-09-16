@@ -22,7 +22,7 @@ class ParticipateInForumTest extends TestCase
 
         $thread = factory('App\Thread')->create();
 
-        $reply = factory('App\Reply')->create(['user_id'=> $thread->owner->id]);
+        $reply = factory('App\Reply')->make(['user_id'=> $thread->owner->id]);
 
         $this->post($thread->path() . '/replies', $reply->toArray());
 
@@ -41,7 +41,7 @@ class ParticipateInForumTest extends TestCase
         $this->expectException('Illuminate\Auth\AuthenticationException');
 
         $thread = factory('App\Thread')->create();
-        $reply = factory('App\Reply')->create();
+        $reply = factory('App\Reply')->make();
 
         $this->post($thread->path() . '/replies', $reply->toArray());
 
