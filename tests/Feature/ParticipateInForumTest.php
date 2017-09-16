@@ -28,4 +28,22 @@ class ParticipateInForumTest extends TestCase
 
         $this->get($thread->path())->assertSee($reply->body);
     }
+
+    /**
+     * 
+     * @test
+     *
+     * @return void
+     */
+
+    function an_un_authenticated_can_not_participate_in_threads()
+    {
+        $this->expectException('Illuminate\Auth\AuthenticationException');
+
+        $thread = factory('App\Thread')->create();
+        $reply = factory('App\Reply')->create();
+
+        $this->post($thread->path() . '/replies', $reply->toArray());
+
+    }
 }
