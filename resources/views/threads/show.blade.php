@@ -24,5 +24,21 @@
             @endforeach
         </div>
     </div>
+
+    @if(auth()->check())
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <form action="{{ $thread->path() . '/replies' }}" method="POST">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        <textarea name="body" id="body" rows="5" class="form-control" placeholder="Say Something">
+                        
+                        </textarea>
+                    </div>
+                    <button class="btn btn-default" type="submit"> Post </button>
+                </form>
+            </div>
+        </div>
+    @endif
 </div>
 @endsection
