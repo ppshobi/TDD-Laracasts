@@ -10,7 +10,7 @@ class ThreadTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * A basic test example.
+     * 
      * @test
      * @return void
      */
@@ -20,5 +20,18 @@ class ThreadTest extends TestCase
         $thread = factory('App\Thread')->create();
 
         $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection' , $thread->replies);
+    }
+
+    /**
+     * 
+     * @test
+     * @return void
+     */
+
+    function a_thread_has_owner()
+    {
+        $thread = factory('App\Thread')->create();
+
+        $this->assertInstanceOf('App\User' , $thread->owner);
     }
 }
