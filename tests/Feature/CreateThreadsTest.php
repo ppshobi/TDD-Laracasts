@@ -26,4 +26,19 @@ class CreateThreadsTest extends TestCase
 
 
     }
+    
+    /**
+     * @test
+     * @return void
+     */
+    public function an_unauthenticated_user_can_not_create_threads()
+    {
+        $this->expectException('Illuminate\Auth\AuthenticationException');
+
+        $thread = factory('App\Thread')->make();
+
+        $this->post('/threads', $thread->toArray());
+
+
+    }
 }
