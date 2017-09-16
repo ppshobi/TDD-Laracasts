@@ -1,0 +1,24 @@
+<?php
+
+namespace Tests\Unit;
+
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+class ThreadTest extends TestCase
+{
+    use RefreshDatabase;
+
+    /**
+     * A basic test example.
+     * @test
+     * @return void
+     */
+
+    function a_thread_has_replies()
+    {
+        $thread = factory('App\Thread')->create();
+
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection' , $thread->replies);
+    }
+}
