@@ -30,7 +30,7 @@
             "Tests\\": "tests/"
         },
         "files": [
-            "tests/utilities/function.php"
+            "tests/utilities/functions.php"
         ]
     },
     "extra": {
