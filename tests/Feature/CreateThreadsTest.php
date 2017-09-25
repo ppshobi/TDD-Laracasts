@@ -45,11 +45,20 @@ class CreateThreadsTest extends TestCase {
      * */
     public function a_thread_require_a_title()
     {
-        $this->signIn();
-        $thread = make('App\Thread', ['title' => null]);
-
-        $this->post('/threads', $thread->toArray())
+        $this->publishThread(['title' => null])
             ->assertSessionHasErrors('title');
+    }
+
+
+    /**
+     * @param array $overRides
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
+    public function publishThread($overRides = [])
+    {
+        $this->signIn();
+        $thread = make('App\Thread', $overRides);
+        return $this->post('/threads', $thread->toArray());
     }
 
 
