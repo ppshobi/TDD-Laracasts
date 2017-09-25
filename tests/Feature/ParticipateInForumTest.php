@@ -15,7 +15,7 @@ class ParticipateInForumTest extends TestCase {
      *
      * @return void
      */
-    function an_authenticated_may_participate_in_threads()
+    function an_authenticated_user_may_participate_in_threads()
     {
         $this->signIn();
         $thread = create('App\Thread');
@@ -30,7 +30,7 @@ class ParticipateInForumTest extends TestCase {
      *
      * @return void
      */
-    function an_un_authenticated_can_not_participate_in_threads()
+    function an_un_authenticated_user_can_not_participate_in_threads()
     {
 
         $this->withoutExceptionHandling()
