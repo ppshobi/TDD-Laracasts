@@ -20,10 +20,9 @@ class CreateThreadsTest extends TestCase {
     public function an_authenticated_user_can_create_threads()
     {
         $this->signIn();
-        $thread = create('App\Thread');
-        $this->post('/threads', $thread->toArray());
-        
-        $this->get($thread->path())
+        $thread = make('App\Thread');
+        $response = $this->post('/threads', $thread->toArray());
+        $this->get($response->headers->get('Location'))
             ->assertSee($thread->title)
             ->assertSee($thread->body);
     }
@@ -35,10 +34,8 @@ class CreateThreadsTest extends TestCase {
     public function an_unauthenticated_user_can_not_create_threads()
     {
         $this->withExceptionHandling();
-
         $this->post('/threads')
             ->assertRedirect('/login');
-
         $this->get('/threads/create')
             ->assertRedirect('/login');
     }
