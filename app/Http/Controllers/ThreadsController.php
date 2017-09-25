@@ -44,6 +44,7 @@ class ThreadsController extends Controller
     {
         $this->validate($request, [
            'title' => 'required',
+            'body' => 'required'
         ]);
 
         $thread = Thread::create([

@@ -48,7 +48,14 @@ class CreateThreadsTest extends TestCase {
         $this->publishThread(['title' => null])
             ->assertSessionHasErrors('title');
     }
-
+    /**
+    * @test
+    *
+    */
+    public function a_thread_require_a_body(){
+        $this->publishThread(['body'=>null])
+            ->assertSessionHasErrors('body');
+    }
 
     /**
      * @param array $overRides
