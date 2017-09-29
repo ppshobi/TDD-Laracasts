@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Favorite;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -26,9 +27,9 @@ class FavoritesTest extends TestCase
      */
     public function an_authenticated_user_can_favorite_any_reply()
     {
+        $this->signIn();
         $reply = create('App\Reply');
-        $this->withoutExceptionHandling()
-            ->post('/replies/' . $reply->id . '/favorites');
+        $this->withoutExceptionHandling()->post('/replies/' . $reply->id . '/favorites');
         $this->assertCount(1, $reply->favorites);
     }
 }
