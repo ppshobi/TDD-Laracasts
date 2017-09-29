@@ -55,6 +55,7 @@
                                aria-haspopup="true" aria-expanded="false">Browse<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="/threads">All Threads</a></li>
+                                <li><a href="/threads?popular=1">Popular Threads</a></li>
                                 @if(auth()->check())
                                     <li><a href="/threads?by={{ auth()->user()->name }}">My Threads</a></li>
                                 @endif
