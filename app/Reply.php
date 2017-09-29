@@ -29,8 +29,10 @@ class Reply extends Model
      */
     public function favourite ()
     {
-        if (!$this->favorites()->where(['user_id' => auth()->id()])->exists()) {
-            $this->favorites()->create(['user_id' => auth()->id()]);
+        $attributes = ['user_id' => auth()->id()];
+
+        if (!$this->favorites()->where($attributes)->exists()) {
+            $this->favorites()->create($attributes);
         }
     }
 }
