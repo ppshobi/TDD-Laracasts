@@ -21,11 +21,14 @@ class ThreadsController extends Controller
      *
      * @param Channel $channel
      * @param ThreadFilters $filters
-     * @return \Illuminate\Http\Response
+     * @return ThreadsController|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Query\Builder|\Illuminate\Http\Response|\Illuminate\Support\Collection
      */
     public function index(Channel $channel, ThreadFilters $filters)
     {
         $threads = $this->getThreads($channel, $filters);
+        if (request()->wantsJson()) {
+            return $threads;
+        }
 
         return view('threads.index', compact('threads'));
     }
@@ -127,7 +130,6 @@ class ThreadsController extends Controller
         }
 
         $threads = $threads->get();
-
         return $threads;
     }
 
