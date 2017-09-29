@@ -14,6 +14,16 @@ class FavoritesTest extends TestCase
      * @test
      *
      */
+    public function guests_can_not_favorite_anything()
+    {
+        $this->post('/replies/1/favorites')
+            ->assertRedirect('/login');
+    }
+
+    /**
+     * @test
+     *
+     */
     public function an_authenticated_user_can_favorite_any_reply()
     {
         $reply = create('App\Reply');
