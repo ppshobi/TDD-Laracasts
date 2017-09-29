@@ -14,9 +14,10 @@
                    {{ $thread->body }}
                 </div>
             </div>
-            @foreach($thread->replies as $reply)
+            @foreach($replies as $reply)
                 @include('threads.reply')
             @endforeach
+            {{ $replies->links() }}
             @if(auth()->check())
                 <form action="{{ $thread->path() . '/replies' }}" method="POST">
                     {{ csrf_field() }}
