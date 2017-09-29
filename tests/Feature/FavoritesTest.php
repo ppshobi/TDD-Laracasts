@@ -32,4 +32,22 @@ class FavoritesTest extends TestCase
         $this->withoutExceptionHandling()->post('/replies/' . $reply->id . '/favorites');
         $this->assertCount(1, $reply->favorites);
     }
+
+    /**
+     * @test
+     *
+     */
+    public function an_authenticated_user_can_favourite_a_reply_once ()
+    {
+        $this->signIn();
+        $reply = create('App\Reply');
+        try {
+            $this->withoutExceptionHandling()->post('/replies/' . $reply->id . '/favorites');
+            $this->withoutExceptionHandling()->post('/replies/' . $reply->id . '/favorites');
+        } catch (\Exception $e) {
+            $this->fail("User can't favorite a reply more than once");
+        }
+
+        $this->assertCount(1, $reply->favorites);
+    }
 }
