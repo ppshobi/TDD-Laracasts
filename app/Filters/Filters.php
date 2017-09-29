@@ -11,7 +11,7 @@ abstract class Filters
      */
     protected $request;
     protected $builder;
-
+    protected $filters = [];
     /**
      * ThreadFilters constructor.
      * @param Request $request
@@ -29,10 +29,21 @@ abstract class Filters
     {
         $this->builder = $builder;
 
-        if ($this->request->has('by')) {
-            $this->by($this->request->by);
+        foreach ($this->getFilters() as $filter => $value) {
+            if (method_exists($this, $filter)) {
+                $this->$filter($value);
+            }
         }
 
         return $this->builder;
+    }
+
+
+    /**
+     * @return array
+     */
+    protected function getFilters(): array
+    {
+        return $this->request->only($this->filters);
     }
 }

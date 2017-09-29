@@ -8,6 +8,8 @@ use App\User;
 
 class ThreadFilters extends Filters
 {
+    protected $filters = ['by'];
+
     /**
      * Filter Query By a Username
      * @param $username
