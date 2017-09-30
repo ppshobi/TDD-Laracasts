@@ -22,4 +22,17 @@ class UserProfileTest extends TestCase
             ->assertSee($user->name);
     }
 
+    /**
+     * @test
+     *
+     */
+    public function a_user_profile_contains_all_the_threads_of_the_user ()
+    {
+        $user = create('App\User');
+        $thread = create('App\Thread', ['user_id' => $user->id]);
+
+        $this->get('/profiles' . $user->name)
+            ->assertSee($thread->title)
+            ->assertSee($thread->body);
+    }
 }
