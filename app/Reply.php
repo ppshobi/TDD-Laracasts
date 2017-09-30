@@ -35,4 +35,12 @@ class Reply extends Model
             $this->favorites()->create($attributes);
         }
     }
+
+    /**
+     * @return bool
+     */
+    public function isFavorited ()
+    {
+        return $this->favorites()->where('user_id', auth()->id())->exists();
+    }
 }
