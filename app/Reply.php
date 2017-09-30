@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Reply extends Model
 {
     protected $fillable = ['body', 'user_id'];
+    protected $with = ['owner', 'favorites'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -41,6 +42,6 @@ class Reply extends Model
      */
     public function isFavorited ()
     {
-        return $this->favorites()->where('user_id', auth()->id())->exists();
+        return !!$this->favorites->where('user_id', auth()->id())->count();
     }
 }
