@@ -100,4 +100,15 @@ class CreateThreadsTest extends TestCase {
         $this->assertDatabaseMissing('threads', ['id' => $thread->id]);
         $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
     }
+
+    /**
+     * @test
+     *
+     */
+    public function guests_can_not_delete_a_thread ()
+    {
+        $thread = create('App\Thread');
+        $response = $this->delete($thread->path());
+        $response->assertRedirect('/login');
+    }
 }
