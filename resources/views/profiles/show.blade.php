@@ -17,7 +17,7 @@
                                    <span class="flex">
                                        <a href="{{ route('profile', $thread->owner->name) }}">{{ $thread->owner->name }}
                                            Posted:</a>
-                                       {{ $thread->title }}
+                                       <a href="{{ $thread->path() }}">{{ $thread->title }}</a>
                                    </span>
                                 <span>
                                        {{ $thread->created_at->diffForHumans() }}
