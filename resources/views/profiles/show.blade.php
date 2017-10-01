@@ -12,8 +12,15 @@
             @foreach($profileUser->threads as $thread)
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <a href="#">{{ $thread->owner->name }} Posted:</a>
-                        {{ $thread->title }}
+                        <div class="level">
+                            <span class="flex">
+                                <a href="#">{{ $thread->owner->name }} Posted:</a>
+                                {{ $thread->title }}
+                            </span>
+                            <span>
+                                {{ $thread->created_at->diffForHumans() }}
+                            </span>
+                        </div>
                     </div>
 
                     <div class="panel-body">
