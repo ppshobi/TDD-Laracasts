@@ -14,7 +14,8 @@
                     <div class="panel-heading">
                         <div class="level">
                             <span class="flex">
-                                <a href="#">{{ $thread->owner->name }} Posted:</a>
+                                <a href="{{ route('profile', $thread->owner->name) }}">{{ $thread->owner->name }}
+                                    Posted:</a>
                                 {{ $thread->title }}
                             </span>
                             <span>

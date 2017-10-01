@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <a href="#">{{ $thread->owner->name }} Posted:</a>                
+                    <a href="{{ route('profile', $thread->owner->name)}}">{{ $thread->owner->name }} Posted:</a>
                     {{ $thread->title }}
                 </div>
 
