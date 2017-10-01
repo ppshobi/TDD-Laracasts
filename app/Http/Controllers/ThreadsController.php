@@ -8,6 +8,10 @@ use App\Filters\ThreadFilters;
 use App\User;
 use Illuminate\Http\Request;
 
+/**
+ * Class ThreadsController
+ * @package App\Http\Controllers
+ */
 class ThreadsController extends Controller
 {
 
@@ -70,11 +74,12 @@ class ThreadsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param $channelId
+     * @param \App\Channel $channel
      * @param  \App\Thread $thread
      * @return \Illuminate\Http\Response
+     * @internal param $channelId
      */
-    public function show($channelId, Thread $thread)
+    public function show (Channel $channel, Thread $thread)
     {
         return view('threads.show', [
             'thread' => $thread,
@@ -111,9 +116,11 @@ class ThreadsController extends Controller
      * @param  \App\Thread $thread
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Thread $thread)
+    public function destroy (Channel $channel, Thread $thread)
     {
-        //
+        $thread->delete();
+
+        return response([], 204);
     }
 
     /**
