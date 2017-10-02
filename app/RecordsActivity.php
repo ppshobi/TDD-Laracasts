@@ -8,6 +8,9 @@ trait RecordsActivity
 {
     protected static function bootRecordsActivity()
     {
+        if (!auth()->check()) {
+            return;
+        }
         foreach (static::getActivitiesToRecord() as $event) {
             static::$event(function ($model) use ($event) {
                 $model->recordActivity($event);
