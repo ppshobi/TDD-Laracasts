@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Activity;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -25,5 +26,9 @@ class ActivityTest extends TestCase
             'subject_id' => $thread->id,
             'subject_type' => 'App\Thread',
         ]);
+
+        $activity = Activity::first();
+
+        $this->assertEquals($thread->id, $activity->subject->id);
     }
 }
