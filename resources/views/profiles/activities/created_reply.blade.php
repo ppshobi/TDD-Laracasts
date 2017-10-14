@@ -2,7 +2,8 @@
     <div class="panel-heading">
         <div class="level">
             <span class="flex">
-                {{  $profileUser->name }} Replied To Thread
+                {{  $profileUser->name }} Replied To 
+                <a href="{{ $activity->subject->thread->path() }}">"{{ $activity->subject->thread->title }}"</a>
             </span>
             <span>
                {{--{{ $thread->created_at->diffForHumans() }}--}}
