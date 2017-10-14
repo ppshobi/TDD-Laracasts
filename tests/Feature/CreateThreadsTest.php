@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Activity;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -20,7 +21,7 @@ class CreateThreadsTest extends TestCase {
     public function an_authenticated_user_can_create_threads()
     {
         $this->signIn();
-        $thread = make('App\Thread');
+        $thread   = make('App\Thread');
         $response = $this->post('/threads', $thread->toArray());
         $this->get($response->headers->get('Location'))
             ->assertSee($thread->title)
@@ -50,18 +51,18 @@ class CreateThreadsTest extends TestCase {
     }
 
     /**
-    * @test
-    *
-    */
+     * @test
+     *
+     */
     public function a_thread_require_a_body(){
         $this->publishThread(['body'=>null])
             ->assertSessionHasErrors('body');
     }
 
     /**
-    * @test
-    *
-    */
+     * @test
+     *
+     */
     public function a_thread_require_a_valid_channel(){
         factory('App\Channel', 2)->create();
 
@@ -80,6 +81,7 @@ class CreateThreadsTest extends TestCase {
     {
         $this->signIn();
         $thread = make('App\Thread', $overRides);
+
         return $this->post('/threads', $thread->toArray());
     }
 
@@ -91,7 +93,7 @@ class CreateThreadsTest extends TestCase {
     {
         $this->signIn();
         $thread = create('App\Thread', ['user_id' => auth()->id()]);
-        $reply = create('App\Reply', ['thread_id' => $thread->id]);
+        $reply  = create('App\Reply', ['thread_id' => $thread->id]);
 
         $response = $this->withoutExceptionHandling()
             ->json('DELETE', $thread->path());
@@ -99,14 +101,7 @@ class CreateThreadsTest extends TestCase {
         $response->assertStatus(204);
         $this->assertDatabaseMissing('threads', ['id' => $thread->id]);
         $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
-        $this->assertDatabaseMissing('activities', [
-            'subject_id' => $thread->id,
-            'subject_type' => get_class($thread),
-        ]);
-        $this->assertDatabaseMissing('activities', [
-            'subject_id' => $reply->id,
-            'subject_type' => get_class($reply),
-        ]);
+        $this->assertEquals(0, Activity::count());
     }
 
     /**
