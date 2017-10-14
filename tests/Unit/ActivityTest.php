@@ -53,18 +53,13 @@ class ActivityTest extends TestCase
     {
         $this->signIn();
 
-        create('App\Thread', ['user_id' => auth()->id(),]);
-
-        create('App\Thread', [
-            'user_id' => auth()->id(),
-            'created_at' => Carbon::now()->subWeek(),
-        ]);
+        create('App\Thread', ['user_id' => auth()->id(),], 2);
 
         auth()->user()->activity()->first()->update([
             'created_at' => Carbon::now()->subWeek(),
         ]);
 
-        $feed = Activity::feed(auth()->user());
+        $feed = Activity::feed(auth()->user(), 50);
 
         $this->assertTrue($feed->keys()->contains(
             Carbon::now()->format('Y-m-d')
