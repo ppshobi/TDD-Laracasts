@@ -28,10 +28,10 @@ class UserProfileTest extends TestCase
      */
     public function a_user_profile_contains_all_the_threads_of_the_user ()
     {
-        $user = create('App\User');
-        $thread = create('App\Thread', ['user_id' => $user->id]);
+        $this->signIn();
+        $thread = create('App\Thread', ['user_id' => auth()->id()]);
 
-        $this->get('/profiles/' . $user->name)
+        $this->get('/profiles/' . auth()->user()->name)
             ->assertSee($thread->title)
             ->assertSee($thread->body);
     }
