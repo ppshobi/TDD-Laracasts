@@ -68,7 +68,6 @@ class ParticipateInForumTest extends TestCase
             ->assertRedirect('login');
 
         $this->signIn()
-            ->withoutExceptionHandling()
             ->delete("/replies/{$reply->id}")
             ->assertStatus(403);
     }
