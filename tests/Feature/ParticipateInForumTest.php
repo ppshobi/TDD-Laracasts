@@ -5,7 +5,8 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ParticipateInForumTest extends TestCase {
+class ParticipateInForumTest extends TestCase
+{
 
     use RefreshDatabase;
 
@@ -19,19 +20,20 @@ class ParticipateInForumTest extends TestCase {
     {
         $this->signIn();
         $thread = create('App\Thread');
-        $reply = make('App\Reply', ['user_id' => $thread->owner->id]);
+        $reply  = make('App\Reply', ['user_id' => $thread->owner->id]);
         $this->post($thread->path() . '/replies', $reply->toArray());
         $this->get($thread->path())->assertSee($reply->body);
     }
 
     /**
-    * @test
-    *
-    */
-    public function a_reply_have_a_body(){
+     * @test
+     *
+     */
+    public function a_reply_have_a_body()
+    {
         $this->signIn();
         $thread = create('App\Thread');
-        $reply = make('App\Reply', ['body' => null]);
+        $reply  = make('App\Reply', ['body' => null]);
         $this->post($thread->path() . '/replies', $reply->toArray())
             ->assertSessionHasErrors('body');
     }
@@ -46,10 +48,24 @@ class ParticipateInForumTest extends TestCase {
     {
 
         $thread = create('App\Thread');
-        $reply = make('App\Reply');
+        $reply  = make('App\Reply');
         $this->withExceptionHandling()
             ->post($thread->path() . '/replies', $reply->toArray())
             ->assertRedirect('/login');
 
     }
+
+    /**
+     * @test
+     *
+     */
+    public function unauthorized_users_can_not_delete_replies()
+    {
+        $reply = create('App\Reply');
+
+        $this->withExceptionHandling()
+            ->delete("/replies/{$reply->id}")
+            ->assertRedirect('login');
+    }
+
 }
