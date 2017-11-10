@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Reply;
 use Illuminate\Http\Request;
 use App\Thread;
 
@@ -27,10 +28,21 @@ class RepliesController extends Controller
             'body' => 'required',
         ]);
         $thread->addReply([
-            'body' => request('body'),
+            'body'    => request('body'),
             'user_id' => auth()->id()
         ]);
 
         return back()->with('flash', 'Your Reply has been created');
+    }
+
+    public function destroy(Reply $reply)
+    {
+        if ($reply->user_id != auth()->id()) {
+            return response([], 403);
+        }
+
+        $reply->delete();
+
+        return back();
     }
 }
