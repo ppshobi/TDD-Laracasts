@@ -1,4 +1,5 @@
-<div id="reply-{{ $reply->id }}" class="panel panel-default">
+<reply inline-template>
+    <div id="reply-{{ $reply->id }}" class="panel panel-default">
     <div class="panel-heading">
         <div class="level">
             <h5 class="flex">
@@ -18,11 +19,17 @@
         </div>
     </div>
     <div class="panel-body">
-        {{ $reply->body }}
+        <div v-if="editing">
+            <textarea class="fomr-control"></textarea>
+        </div>
+
+        <div v-else>
+            {{ $reply->body }}
+        </div>
     </div>
     @can('update', $reply)
         <div class="panel-footer level">
-            <button class="btn btn-xs mr-1">Edit</button>
+            <button class="btn btn-xs mr-1" @click="editing = true">Edit</button>
             <form method="POST" action="/replies/{{ $reply->id }}">
                 {{ csrf_field() }}
                 {{ method_field('DELETE') }}
@@ -31,3 +38,4 @@
         </div>
     @endcan
 </div>
+</reply>
