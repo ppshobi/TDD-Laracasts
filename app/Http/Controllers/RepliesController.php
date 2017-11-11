@@ -35,6 +35,11 @@ class RepliesController extends Controller
         return back()->with('flash', 'Your Reply has been created');
     }
 
+    public function update(Reply $reply)
+    {
+        $reply->update(request(['body']));
+    }
+
     public function destroy(Reply $reply)
     {
         $this->authorize('update', $reply);
