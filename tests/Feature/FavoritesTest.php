@@ -37,6 +37,22 @@ class FavoritesTest extends TestCase
      * @test
      *
      */
+    public function an_authenticated_user_can_unfavorite_any_reply()
+    {
+        $this->signIn();
+        $reply = create('App\Reply');
+
+        $this->withoutExceptionHandling()->post('/replies/' . $reply->id . '/favorites');
+        $this->assertCount(1, $reply->favorites);
+
+        $this->withoutExceptionHandling()->delete('/replies/' . $reply->id . '/favorites');
+        $this->assertCount(0, $reply->favorites);
+    }
+
+    /**
+     * @test
+     *
+     */
     public function an_authenticated_user_can_favourite_a_reply_once ()
     {
         $this->signIn();
