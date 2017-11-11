@@ -17,6 +17,14 @@
 
                 flash('Reply Updated');
             },
+
+            destroy() {
+                axios.delete('/replies/' + this.attributes.id);
+
+                $(this.$el).fadeOut(300, () => {
+                    flash('Reply Deleted');
+                });
+            }
         }
     }
 </script>
