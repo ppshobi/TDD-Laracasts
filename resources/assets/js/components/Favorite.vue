@@ -4,28 +4,36 @@
 
         data() {
             return {
-                favoritesCount: this.reply.favoritesCount,
-                isFavorited: this.reply.isFavorited,
+                count: this.reply.favoritesCount,
+                active: this.reply.isFavorited,
             }
         },
 
         methods: {
             toggle() {
-                if (this.isFavorited) {
-                    axios.delete('/replies/' + this.reply.id + '/favorites');
-                    this.isFavorited = false;
-                    this.favoritesCount--;
-                } else {
-                    axios.post('/replies/' + this.reply.id + '/favorites');
-                    this.isFavorited = true;
-                    this.favoritesCount++;
-                }
+                this.active ? this.unFavorite() : this.favorite();
+            },
+
+            unFavorite() {
+                axios.delete(this.endpoint);
+                this.active = false;
+                this.count--;
+            },
+
+            favorite() {
+                axios.post(this.endpoint);
+                this.active = true;
+                this.count++;
             },
         },
 
         computed: {
             classes() {
-                return ['btn', this.isFavorited ? 'btn-primary' : 'btn-default'];
+                return ['btn', this.active ? 'btn-primary' : 'btn-default'];
+            },
+
+            endpoint() {
+                return '/replies/' + this.reply.id + '/favorites';
             }
         },
     }
@@ -34,6 +42,6 @@
 <template>
     <button type="submit" :class="classes" @click="toggle">
         <span class="glyphicon glyphicon-heart"></span>
-        <span v-text="favoritesCount"></span>
+        <span v-text="count"></span>
     </button>
 </template>
