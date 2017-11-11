@@ -12,6 +12,7 @@ class Reply extends Model
 
     protected $fillable = ['body', 'user_id'];
     protected $with = ['owner', 'favorites'];
+    protected $appends = ['favoritesCount'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
