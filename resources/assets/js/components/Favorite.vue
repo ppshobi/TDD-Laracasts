@@ -5,24 +5,34 @@
         data() {
             return {
                 favoritesCount: this.reply.favoritesCount,
+                isFavorited: false,
             }
         },
 
         methods: {
             toggle() {
-                if (isFavorited) {
+                if (this.isFavorited) {
                     //unfavorite
                     axios.delete('/replies/' + this.reply.id + '/favorites');
+                    this.isFavorited = false;
                 } else {
                     axios.post('/replies/' + this.reply.id + '/favorites');
+                    this.isFavorited = true;
+                    this.favoritesCount++;
                 }
             },
-        }
+        },
+
+        computed: {
+            classes() {
+                return ['btn', this.isFavorited ? 'btn-primary' : 'btn-default'];
+            }
+        },
     }
 </script>
 
 <template>
-    <button type="submit" class="btn btn-default" @click="toggle">
+    <button type="submit" :class="classes" @click="toggle">
         <span class="glyphicon glyphicon-heart"></span>
         <span v-text="favoritesCount"></span>
     </button>
