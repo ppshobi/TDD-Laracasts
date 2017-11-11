@@ -28,9 +28,7 @@ trait Favoritable
     public function unFavorite()
     {
         $attributes = ['user_id' => auth()->id()];
-        $this->favorites()->where($attributes)->get()->each(function ($favorite) {
-            $favorite->delete();
-        });
+        $this->favorites()->where($attributes)->get()->each->delete();
     }
 
     /**
