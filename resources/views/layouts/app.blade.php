@@ -25,6 +25,10 @@
         .flex {
             flex: 1;
         }
+
+        .mr-1 {
+            margin-right: 1em;
+        }
     </style>
 </head>
 <body>
