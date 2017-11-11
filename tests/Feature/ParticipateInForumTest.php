@@ -105,4 +105,21 @@ class ParticipateInForumTest extends TestCase
         ]);
     }
 
+    /**
+     * @test
+     *
+     */
+    public function unauthorized_users_can_not_update_replies()
+    {
+        $reply = create('App\Reply');
+
+        $this->withExceptionHandling()
+            ->patch("/replies/{$reply->id}")
+            ->assertRedirect('login');
+
+        $this->signIn()
+            ->patch("/replies/{$reply->id}")
+            ->assertStatus(403);
+    }
+
 }
