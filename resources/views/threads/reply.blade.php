@@ -28,9 +28,7 @@
             <button class="btn btn-xs btn-link" @click="editing=false ">Cancel</button>
         </div>
 
-        <div v-else>
-            {{ $reply->body }}
-        </div>
+        <div v-else v-text="body"></div>
     </div>
     @can('update', $reply)
         <div class="panel-footer level">
