@@ -20,7 +20,12 @@
     </div>
     <div class="panel-body">
         <div v-if="editing">
-            <textarea class="form-control" v-model="body"></textarea>
+            <div class="form-group">
+                <textarea class="form-control" v-model="body"></textarea>
+            </div>
+
+            <button class="btn btn-xs btn-primary" @click="update">Update</button>
+            <button class="btn btn-xs btn-link" @click="editing=false ">Cancel</button>
         </div>
 
         <div v-else>
