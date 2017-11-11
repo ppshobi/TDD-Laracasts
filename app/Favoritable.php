@@ -16,13 +16,19 @@ trait Favoritable
     /**
      * Favorites a reply
      */
-    public function favourite ()
+    public function favorite()
     {
         $attributes = ['user_id' => auth()->id()];
 
         if (!$this->favorites()->where($attributes)->exists()) {
             $this->favorites()->create($attributes);
         }
+    }
+
+    public function unFavorite()
+    {
+        $attributes = ['user_id' => auth()->id()];
+        $this->favorites()->where($attributes)->delete();
     }
 
     /**
