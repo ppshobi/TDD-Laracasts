@@ -26,7 +26,7 @@
                             {{ $thread->body }}
                         </div>
                     </div>
-                    <replies :data="{{ $thread->replies }}"></replies>
+                    <replies :data="{{ $thread->replies }}" @removed="repliesCount--"></replies>
                     {{--@foreach($replies as $reply)--}}
                         {{--@include('threads.reply')--}}
                     {{--@endforeach--}}

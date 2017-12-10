@@ -61,7 +61,7 @@
                 axios.delete('/replies/' + this.data.id);
 
                 this.$emit('deleted', this.data.id);
-                flash('Reply Deleted');
+                // flash('Reply Deleted');
                 // $(this.$el).fadeOut(300, () => {
                 //     flash('Reply Deleted');
                 // });
