@@ -34,6 +34,11 @@
             display: none;
         }
     </style>
+    <script>
+        window.App = {!! json_encode([
+        'signedIn' => Auth::check(),
+    ]) !!};
+    </script>
 </head>
 <body>
     <div id="app">
@@ -45,4 +50,5 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
+
 </html>
