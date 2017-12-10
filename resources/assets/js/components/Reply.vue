@@ -24,7 +24,7 @@
             <div v-else v-text="body"></div>
         </div>
         <!--@can('update', $reply)-->
-            <div class="panel-footer level">
+            <div class="panel-footer level" v-if="canUpdate">
                 <button class="btn btn-xs mr-1" @click="editing = true">Edit</button>
                 <button class="btn btn-xs btn-danger" @click="destroy">Delete</button>
             </div>
@@ -66,6 +66,10 @@
         computed:{
             signedIn(){
                 return window.App.signedIn;
+            },
+
+            canUpdate(){
+                return this.data.user_id == window.App.user.id;
             }
         }
     }
