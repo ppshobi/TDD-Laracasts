@@ -24,10 +24,10 @@
             <div v-else v-text="body"></div>
         </div>
         <!--@can('update', $reply)-->
-            <!--<div class="panel-footer level">-->
-                <!--<button class="btn btn-xs mr-1" @click="editing = true">Edit</button>-->
-                <!--<button class="btn btn-xs btn-danger" @click="destroy">Delete</button>-->
-            <!--</div>-->
+            <div class="panel-footer level">
+                <button class="btn btn-xs mr-1" @click="editing = true">Edit</button>
+                <button class="btn btn-xs btn-danger" @click="destroy">Delete</button>
+            </div>
         <!--@endcan-->
     </div>
 </template>
@@ -60,9 +60,11 @@
             destroy() {
                 axios.delete('/replies/' + this.data.id);
 
-                $(this.$el).fadeOut(300, () => {
-                    flash('Reply Deleted');
-                });
+                this.$emit('deleted', this.data.id);
+                flash('Reply Deleted');
+                // $(this.$el).fadeOut(300, () => {
+                //     flash('Reply Deleted');
+                // });
             }
         }
     }
