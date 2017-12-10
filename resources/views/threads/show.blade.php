@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <thread-view inline-template>
+    <thread-view :initial-replies-count="{{ $thread->replies_count }}" inline-template>
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
@@ -50,7 +50,7 @@
                         <div class="panel-body">
                             <p>This Thread was published {{ $thread->created_at->diffForHumans() }} by
                                 <a href="#"> {{ $thread->owner->name }} </a> and currently
-                                has {{ $thread->replies_count }}
+                                has <span v-text="repliesCount  "></span>
                                 {{ str_plural('reply', $thread->replies_count) }}
                             </p>
                         </div>
