@@ -39,7 +39,7 @@
                             <button class="btn btn-default" type="submit"> Post</button>
                         </form>
                     @else
-                        <p class="text-center"><a href="{{ route('login') }}">Sign in</a> to post Comments </p
+                        <p class="text-center"><a href="{{ route('login') }}">Sign in</a> to post Comments </p>
                     @endif
                 </div>
                 <div class="col-md-4">
@@ -55,6 +55,5 @@
                 </div>
             </div>
         </div>
-    </div>
     </thread-view>
 @endsection
