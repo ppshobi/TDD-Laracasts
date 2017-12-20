@@ -4,7 +4,7 @@
             <reply :data="reply" @deleted="remove(index)"></reply>
         </div>
 
-        <paginator></paginator>
+        <paginator :dataSet="dataSet"></paginator>
 
         <new-reply @created="add" :endpoint="endpoint"></new-reply>
     </div>
