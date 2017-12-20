@@ -4,7 +4,7 @@
             <reply :data="reply" @deleted="remove(index)"></reply>
         </div>
 
-        <new-reply></new-reply>
+        <new-reply @created="add"></new-reply>
     </div>
 </template>
 
@@ -15,27 +15,28 @@
     export default {
 
         components: {Reply, NewReply},
+        props: ['data'],
 
         data() {
             return {
-                items: [],
+                items: this.data,
             };
         },
 
         created(){
-            this.fetch();
+            // this.fetch();
         },
 
         methods: {
 
-            fetch(){
-                axios.get(this.url())
-                    .then(this.refresh)
-            },
-
-            url(){
-
-            },
+            // fetch(){
+            //     axios.get(this.url())
+            //         .then(this.refresh)
+            // },
+            //
+            // url(){
+            //     return
+            // },
 
             refresh(response){
 
@@ -45,7 +46,12 @@
                 this.items.splice(index, 1);
                 this.$emit('removed');
                 flash('Reply Deleted');
-            }
+            },
+
+            add(reply){
+                this.items.push(reply);
+
+            },
         }
     }
 </script>

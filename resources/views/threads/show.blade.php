@@ -26,7 +26,7 @@
                             {{ $thread->body }}
                         </div>
                     </div>
-                    <replies @removed="repliesCount--"></replies>
+                    <replies @removed="repliesCount--" :data="{{$thread->replies}}"></replies>
 
                     {{--{{ $replies->links() }}--}}
 
@@ -36,7 +36,7 @@
                         <div class="panel-body">
                             <p>This Thread was published {{ $thread->created_at->diffForHumans() }} by
                                 <a href="#"> {{ $thread->owner->name }} </a> and currently
-                                has <span v-text="repliesCount  "></span>
+                                has <span v-text="repliesCount"></span>
                                 {{ str_plural('reply', $thread->replies_count) }}
                             </p>
                         </div>

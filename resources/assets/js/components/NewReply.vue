@@ -23,13 +23,13 @@
         data(){
             return {
                 body: '',
-                endpoint:'',
+                endpoint:'/threads/rerum/26/replies',
             }
         },
 
         methods: {
             addReply(){
-                axios.post(this.endpoint,{body: this.body,})
+                axios.post(this.endpoint, {body: this.body})
                     .then(response => {
                         this.body='';
 
