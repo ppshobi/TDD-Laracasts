@@ -40,13 +40,18 @@
             },
 
             page() {
-                this.broadcast();
+                this.broadcast().updateUrl();
             },
         },
 
         methods: {
-            broadcast(){
+            broadcast() {
                 this.$emit('updated', this.page);
+                return this;
+            },
+
+            updateUrl() {
+                history.pushState(null, null, `?page=${this.page}`);
             },
         }
     }

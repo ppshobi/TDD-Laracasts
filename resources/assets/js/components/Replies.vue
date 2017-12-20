@@ -34,8 +34,7 @@
         methods: {
 
             fetch(page) {
-                axios.get(this.url(page))
-                    .then(this.refresh);
+                axios.get(this.url(page)).then(this.refresh);
             },
 
             url(page) {
