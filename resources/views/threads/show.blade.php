@@ -26,7 +26,7 @@
                             {{ $thread->body }}
                         </div>
                     </div>
-                    <replies :data="{{ $thread->replies }}" @removed="repliesCount--"></replies>
+                    <replies @removed="repliesCount--"></replies>
 
                     {{--{{ $replies->links() }}--}}
                     @if(auth()->check())

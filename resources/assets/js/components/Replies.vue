@@ -10,17 +10,30 @@
     import Reply from "./Reply";
 
     export default {
-        props: ['data'],
 
         components: {Reply},
 
         data() {
             return {
-                items: this.data,
+                items: [],
             };
         },
 
+        created(){
+            this.fetch();
+        },
+
         methods: {
+
+            fetch(){
+                axios.get(this.url)
+                    .then(this.refresh)
+            },
+
+            refresh(response){
+
+            },
+
             remove(index){
                 this.items.splice(index, 1);
                 this.$emit('removed');
