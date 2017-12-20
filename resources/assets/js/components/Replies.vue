@@ -4,7 +4,7 @@
             <reply :data="reply" @deleted="remove(index)"></reply>
         </div>
 
-        <paginator :dataSet="dataSet"></paginator>
+        <paginator :dataSet="dataSet" @updated="fetch"></paginator>
 
         <new-reply @created="add" :endpoint="endpoint"></new-reply>
     </div>
@@ -33,20 +33,18 @@
 
         methods: {
 
-            fetch() {
-                axios.get(this.url())
+            fetch(page) {
+                axios.get(this.url(page))
                     .then(this.refresh);
             },
 
-            url() {
-                return `${location.pathname}/replies`;
+            url(page = 1) {
+                return `${location.pathname}/replies?page=` + page;
             },
 
             refresh({data}) {
                 this.dataSet = data;
                 this.items   = data.data;
-
-                // console.log(data);
             },
         }
     }
