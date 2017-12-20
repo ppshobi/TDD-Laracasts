@@ -29,18 +29,7 @@
                     <replies @removed="repliesCount--"></replies>
 
                     {{--{{ $replies->links() }}--}}
-                    @if(auth()->check())
-                        <form action="{{ $thread->path() . '/replies' }}" method="POST">
-                            {{ csrf_field() }}
-                            <div class="form-group">
-                                <textarea name="body" id="body" rows="5" class="form-control" placeholder="Say Something">
-                                </textarea>
-                            </div>
-                            <button class="btn btn-default" type="submit"> Post</button>
-                        </form>
-                    @else
-                        <p class="text-center"><a href="{{ route('login') }}">Sign in</a> to post Comments </p>
-                    @endif
+
                 </div>
                 <div class="col-md-4">
                     <div class="panel panel-default">

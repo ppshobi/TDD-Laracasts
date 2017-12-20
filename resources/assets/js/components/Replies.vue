@@ -3,15 +3,18 @@
         <div v-for="(reply, index) in items" :key="reply.id">
             <reply :data="reply" @deleted="remove(index)"></reply>
         </div>
+
+        <new-reply></new-reply>
     </div>
 </template>
 
 <script>
-    import Reply from "./Reply";
+    import Reply from "./Reply.vue";
+    import NewReply from './NewReply.vue';
 
     export default {
 
-        components: {Reply},
+        components: {Reply, NewReply},
 
         data() {
             return {
@@ -26,8 +29,12 @@
         methods: {
 
             fetch(){
-                axios.get(this.url)
+                axios.get(this.url())
                     .then(this.refresh)
+            },
+
+            url(){
+
             },
 
             refresh(response){
