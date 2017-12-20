@@ -24,10 +24,11 @@
 
 <script>
     export default {
+        props:['endpoint'],
+
         data(){
             return {
                 body: '',
-                endpoint:'/threads/rerum/26/replies',
             }
         },
 
