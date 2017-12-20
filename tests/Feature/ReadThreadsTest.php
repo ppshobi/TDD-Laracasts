@@ -43,19 +43,6 @@ class ReadThreadsTest extends TestCase {
     }
 
     /**
-     * A Test
-     *
-     * @test
-     * @return void
-     */
-    public function user_can_see_replies_associated_with_a_thread()
-    {
-        $reply = create('App\Reply', ['thread_id' => $this->thread->id]);
-        $response = $this->get($this->thread->path());
-        $response->assertSee($reply->body);
-    }
-
-    /**
      * @test
      *
      */
@@ -113,7 +100,7 @@ class ReadThreadsTest extends TestCase {
 
         $response = $this->getJson($thread->path().'/replies')->json();
 
-        $this->assertCount(1, $response['data']);
+        $this->assertCount(2, $response['data']);
         $this->assertEquals(2, $response['total']);
 
     }
