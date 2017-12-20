@@ -15,35 +15,34 @@
     export default {
 
         components: {Reply, NewReply},
-        props: ['data'],
 
         data() {
             return {
-                items: this.data,
+                items: [],
                 endpoint: location.pathname + '/replies',
             };
         },
 
         created(){
-            // this.fetch();
+            this.fetch();
         },
 
         methods: {
 
-            // fetch(){
-            //     axios.get(this.url())
-            //         .then(this.refresh)
-            // },
-            //
-            // url(){
-            //     return
-            // },
-
-            refresh(response){
-
+            fetch() {
+                axios.get(this.url())
+                    .then(this.refresh);
             },
 
-            remove(index){
+            url() {
+                return `${location.pathname}/replies`;
+            },
+
+            refresh(response) {
+                console.log(response);
+            },
+
+            remove(index) {
                 this.items.splice(index, 1);
                 this.$emit('removed');
                 flash('Reply Deleted');
