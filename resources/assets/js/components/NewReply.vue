@@ -1,7 +1,7 @@
 <template>
     <div>
-
-        <div class="form-group">
+        <div v-if="signedIn">
+            <div class="form-group">
             <textarea name="body"
                       id="body"
                       rows="5"
@@ -10,10 +10,14 @@
                       required
                       v-model="body">
             </textarea>
+            </div>
+            <button class="btn btn-default" type="submit" @click="addReply"> Post</button>
         </div>
-        <button class="btn btn-default" type="submit" @click="addReply"> Post</button>
 
-        <!--<p class="text-center"><a href="{{ route('login') }}">Sign in</a> to post Comments </p>-->
+
+        <p class="text-center" v-else>
+            <a href="/login">Sign in</a> to post Comments
+        </p>
 
     </div>
 </template>
@@ -38,5 +42,11 @@
                     });
             },
         },
+
+        computed:{
+            signedIn(){
+                return window.App.signedIn;
+            }
+        }
     }
 </script>
