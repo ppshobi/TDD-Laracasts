@@ -80,7 +80,7 @@ class ThreadTest extends TestCase {
 
         $thread->subscribe();
 
-        $thread->subscriptions()->where('user_id', auth()->id());
+        $this->assertEquals(1, $thread->subscriptions()->where('user_id', auth()->id())->count());
 
     }
 }
