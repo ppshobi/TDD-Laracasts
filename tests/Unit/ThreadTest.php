@@ -68,4 +68,19 @@ class ThreadTest extends TestCase {
         $thread = create('App\Thread');
         $this->assertEquals("/threads/{$thread->channel->slug}/{$thread->id}", $thread->path());
     }
+
+    /**
+     * @test
+     *
+     */
+    public function a_thread_can_be_subscribed_to()
+    {
+        $thread = create('App\Thread');
+        $this->signIn();
+
+        $thread->subscribe();
+
+        $thread->subscriptions()->where('user_id', auth()->id());
+
+    }
 }
