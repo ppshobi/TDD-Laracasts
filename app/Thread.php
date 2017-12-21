@@ -9,7 +9,8 @@ class Thread extends Model
     use RecordsActivity;
 
     protected $fillable = ['user_id', 'channel_id', 'title', 'body',];
-    protected $with = ['owner', 'channel',];
+    protected $with     = ['owner', 'channel',];
+    protected $appends  = ['isSubscribedTo'];
 
     protected static function boot()
     {
@@ -74,5 +75,16 @@ class Thread extends Model
     public function subscriptions()
     {
         return $this->hasMany(ThreadSubscription::class);
+    }
+
+    /**
+     *  Custom Eloquent attribute to
+     *  check if the current user subscribed to the thread or not
+     */
+    public function getIsSubscribedToAttribute()
+    {
+        return $this->subscriptions()
+            ->where('user_id', auth()->id())
+            ->exists();
     }
 }
