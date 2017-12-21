@@ -36,6 +36,9 @@
                                 has <span v-text="repliesCount"></span>
                                 {{ str_plural('reply', $thread->replies_count) }}
                             </p>
+                            <p>
+                                <subscribe-button></subscribe-button>
+                            </p>
                         </div>
                     </div>
                 </div>
