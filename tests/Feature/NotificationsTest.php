@@ -41,7 +41,30 @@ class NotificationsTest extends TestCase
      * @test
      *
      */
-    public function a_user_can_clear_a_notification()
+    public function a_user_can_fetch_their_notifications()
+    {
+        $this->signIn();
+
+        $thread = create('App\Thread')->subscribe();
+
+        $thread->addReply([
+            'user_id' => create('App\User')->id,
+            'body'    => 'Some Test Reply',
+        ]);
+
+        $user = auth()->user();
+
+        $response = $this->withoutExceptionHandling()
+             ->getJson("/profiles/{$user->name}/notifications")->json();
+
+        $this->assertCount(1, $response);
+    }
+
+    /**
+     * @test
+     *
+     */
+    public function a_user_can_mark_a_notification_as_read()
     {
         $this->signIn();
 
@@ -56,13 +79,11 @@ class NotificationsTest extends TestCase
 
         $this->assertCount(1, $user->unreadNotifications);
 
-
         $notificationId = $user->unreadNotifications->first()->id;
 
         $this->withoutExceptionHandling()
              ->delete("/profiles/{$user->name}/notifications/{$notificationId}");
 
         $this->assertCount(0, $user->fresh()->unreadNotifications);
-
     }
 }
