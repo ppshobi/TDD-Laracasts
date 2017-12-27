@@ -66,11 +66,17 @@ class Thread extends Model
         return $filters->apply($query);
     }
 
+    /**
+     * @param null $userId
+     * @return $this
+     */
     public function subscribe($userId = null)
     {
         $this->subscriptions()->create([
             'user_id'   => $userId ?: auth()->id(),
         ]);
+
+        return $this;
     }
 
     public function unsubscribe($userId = null)
