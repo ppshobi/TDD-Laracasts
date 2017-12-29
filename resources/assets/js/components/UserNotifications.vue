@@ -3,9 +3,13 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <span class="glyphicon glyphicon-bell"></span>
         </a>
+
         <ul class="dropdown-menu">
             <li v-for="notification in notifications">
-                <a :href="notification.data.link" v-text="notification.data.message" @click.prevent="markAsRead(notification)"></a>
+                <a :href="notification.data.link"
+                   v-text="notification.data.message"
+                   @click="markAsRead(notification)">
+                </a>
             </li>
         </ul>
     </li>
