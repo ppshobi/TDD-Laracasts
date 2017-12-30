@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Notifications\ThreadWasUpdated;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -132,5 +133,23 @@ class ThreadTest extends TestCase {
         $thread->subscribe();
 
         $this->assertTrue($thread->isSubscribedTo);
+    }
+
+    /**
+     * @test
+     *
+     */
+    public function a_thread_can_check_if_the_authenticated_user_has_read_all_replies()
+    {
+        $this->signIn();
+
+        $thread = create('App\Thread');
+
+        $this->assertTrue($thread->hasUpdatesFor(auth()->user()));
+
+        $key = sprintf("users.%s.visits.%s", auth()->id(), $thread->id);
+        cache()->forever($key, Carbon::now());
+
+        $this->assertFalse($thread->hasUpdatesFor(auth()->user()));
     }
 }
