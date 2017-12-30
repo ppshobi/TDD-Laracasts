@@ -2,10 +2,9 @@
 
 namespace Tests\Unit;
 
-use App\Notifications\ThreadWasUpdated;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
+use App\Notifications\ThreadWasUpdated;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ThreadTest extends TestCase {
@@ -143,13 +142,17 @@ class ThreadTest extends TestCase {
     {
         $this->signIn();
 
-        $thread = create('App\Thread');
 
-        $this->assertTrue($thread->hasUpdatesFor(auth()->user()));
+        tap(auth()->user(), function($user){
 
-        $key = sprintf("users.%s.visits.%s", auth()->id(), $thread->id);
-        cache()->forever($key, Carbon::now());
+            $thread = create('App\Thread');
 
-        $this->assertFalse($thread->hasUpdatesFor(auth()->user()));
+            $this->assertTrue($thread->hasUpdatesFor($user));
+
+            $user->read($thread);
+
+            $this->assertFalse($thread->hasUpdatesFor($user));
+
+        });
     }
 }

@@ -95,10 +95,9 @@ class Thread extends Model
         return $this->hasMany(ThreadSubscription::class);
     }
 
-    public function hasUpdatesFor()
+    public function hasUpdatesFor($user)
     {
-        $key = sprintf("users.%s.visits.%s", auth()->id(), $this->id);
-        return $this->updated_at > cache($key);
+        return $this->updated_at > cache($user->visitedThreadCacheKey($this));
     }
 
     /**
