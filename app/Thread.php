@@ -95,6 +95,12 @@ class Thread extends Model
         return $this->hasMany(ThreadSubscription::class);
     }
 
+    public function hasUpdatesFor()
+    {
+        $key = sprintf("users.%s.visits.%s", auth()->id(), $this->id);
+        return $this->updated_at > cache($key);
+    }
+
     /**
      *  Custom Eloquent attribute to
      *  check if the current user subscribed to the thread or not
