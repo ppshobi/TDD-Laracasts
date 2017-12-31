@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Reply;
-use App\Spam;
 use App\Thread;
+use App\Inspections\Spam;
 
 /**
  * Class RepliesController
