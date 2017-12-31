@@ -139,6 +139,6 @@ class ParticipateInForumTest extends TestCase
 
         $this->expectException(\Exception::class);
 
-        $this->post($thread->path() . '/replies', $reply->toArray());
+        $this->withoutExceptionHandling()->post($thread->path() . '/replies', $reply->toArray());
     }
 }
