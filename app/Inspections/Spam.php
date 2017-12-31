@@ -4,28 +4,18 @@ namespace App\Inspections;
 
 class Spam
 {
+    protected $inspections = [
+        InvalidKeywords::class,
+        KeyHeldDown::class,
+    ];
+
     public function detect($text)
     {
-        $this->detectInvalidKeywords($text);
-        $this->detectKeyHeldDown($text);
+        foreach ($this->inspections as $inspection)
+        {
+            app($inspection)->detect($text);
+        }
 
         return false;
-    }
-
-    private function detectInvalidKeywords($text)
-    {
-        $invalidKeyWords = [
-            'yahoo customer support',
-        ];
-
-        foreach ($invalidKeyWords as $keyWord)
-        {
-            throw_if(stripos($text, $keyWord) !== false, new \Exception('Your Reply Contains Spam'));
-        }
-    }
-
-    private function detectKeyHeldDown($text)
-    {
-        throw_if(preg_match('/(.)\\1{4,}/',$text), new \Exception('Your Reply Contains Spam'));
     }
 }
