@@ -36,12 +36,7 @@ class RepliesController extends Controller
             'user_id' => auth()->id()
         ]);
 
-        if(request()->expectsJson())
-        {
-            return $reply->load('owner');
-        }
-
-        return back()->with('flash', 'Your Reply has been created');
+        return $reply->load('owner');
     }
 
     public function update(Reply $reply)
