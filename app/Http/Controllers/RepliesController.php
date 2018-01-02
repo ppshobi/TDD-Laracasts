@@ -29,12 +29,19 @@ class RepliesController extends Controller
      */
     public function store($channelId, Thread $thread)
     {
-        $this->validateReply();
+        try
+        {
+            $this->validateReply();
 
-        $reply = $thread->addReply([
-            'body'    => request('body'),
-            'user_id' => auth()->id()
-        ]);
+            $reply = $thread->addReply([
+                'body'    => request('body'),
+                'user_id' => auth()->id()
+            ]);
+        }
+        catch (\Exception $e)
+        {
+            return response('Your Reply Could not be saved now', 422);
+        }
 
         return $reply->load('owner');
     }
