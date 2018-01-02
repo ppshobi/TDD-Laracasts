@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Reply;
 use App\Thread;
-use App\Inspections\Spam;
+use App\Rules\SpamFree;
 
 /**
  * Class RepliesController
@@ -31,7 +31,7 @@ class RepliesController extends Controller
     {
         try
         {
-            $this->validateReply();
+            $this->validate(request(), ['body' => ['required', new SpamFree]]);
 
             $reply = $thread->addReply([
                 'body'    => request('body'),
@@ -52,6 +52,7 @@ class RepliesController extends Controller
 
         try
         {
+            $this->validate(request(), ['body' => ['required', new SpamFree,],]);
             $this->validateReply();
 
             $reply->update(request(['body']));
@@ -75,12 +76,4 @@ class RepliesController extends Controller
         return back();
     }
 
-    private function validateReply()
-    {
-        $this->validate(request(), [
-            'body' => 'required',
-        ]);
-
-        resolve(Spam::class)->detect(request('body'));
-    }
 }
