@@ -50,9 +50,17 @@ class RepliesController extends Controller
     {
         $this->authorize('update', $reply);
 
-        $this->validateReply();
+        try
+        {
+            $this->validateReply();
 
-        $reply->update(request(['body']));
+            $reply->update(request(['body']));
+        }
+        catch (\Exception $e)
+        {
+            return response('Sorry Your Reply Could Not be posted now',422);
+        }
+
     }
 
     public function destroy(Reply $reply)
