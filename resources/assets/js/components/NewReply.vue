@@ -36,9 +36,11 @@
                 axios.post(`${location.pathname}/replies`, {body: this.body})
                     .then(response => {
                         this.body='';
-
-                        flash('Your Reply has been Posted');
+                        flash('Your Reply Successfully posted');
                         this.$emit('created', response.data);
+                    })
+                    .catch(error => {
+                        flash(error.response.data, 'danger');
                     });
             },
         },
