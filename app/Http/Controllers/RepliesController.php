@@ -52,8 +52,7 @@ class RepliesController extends Controller
 
         try
         {
-            $this->validate(request(), ['body' => ['required', new SpamFree,],]);
-            $this->validateReply();
+            $this->validate(request(), ['body' => ['required', new SpamFree]]);
 
             $reply->update(request(['body']));
         }
