@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Gate;
 use App\Reply;
 use App\Thread;
 use App\Rules\SpamFree;
@@ -31,6 +32,11 @@ class RepliesController extends Controller
     {
         try
         {
+            if(Gate::denies('create', new Reply))
+            {
+                return response('You are posting too many times in a row :)', 422);
+            }
+
             $this->validate(request(), ['body' => ['required', new SpamFree]]);
 
             $reply = $thread->addReply([
