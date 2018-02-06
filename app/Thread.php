@@ -47,16 +47,7 @@ class Thread extends Model
 
         event(new ThreadRecievedNewReply($reply));
 
-        $this->notifySubscribers($reply);
-
         return $reply;
-    }
-
-    private function notifySubscribers($reply)
-    {
-        $this->subscriptions
-            ->where('user_id', '!=', $reply->user_id)->each
-            ->notify($reply);
     }
 
     /**
