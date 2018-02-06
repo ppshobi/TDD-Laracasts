@@ -26,14 +26,13 @@ class NotifyMentionedUsers
      */
     public function handle(ThreadRecievedNewReply $event)
     {
-        preg_match_all('/\@([^\s\.]+)/', $event->reply->body, $matches);
-
-        foreach ($matches[1] as $name)
-        {
-            if($user = User::whereName($name)->first())
-            {
-                $user->notify(new YouWereMentioned($event->reply));
-            }
-        }
+        collect($event->reply->mentionedUsers())
+        ->map(function($name){
+            return User::whereName($name)->first();
+        })
+        ->filter()
+        ->each(function($user) use($event){
+            $user->notify(new YouWereMentioned($event->reply));
+        });
     }
 }
