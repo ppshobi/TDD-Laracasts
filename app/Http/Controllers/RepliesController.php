@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Gate;
+use App\User;
 use App\Reply;
 use App\Thread;
 use App\Rules\SpamFree;
+use App\Notifications\YouWereMentioned;
 
 /**
  * Class RepliesController
@@ -47,6 +49,19 @@ class RepliesController extends Controller
         catch (\Exception $e)
         {
             return response('Your Reply Could not be saved now', 422);
+        }
+
+        preg_match_all('/\@([^\s\.]+)/', $reply->body, $matches);
+
+        $names = $matches[1];
+        foreach ($names as $name)
+        {
+            $user = User::whereName($name)->first();
+
+            if($user)
+            {
+                $user->notify(new YouWereMentioned($reply));
+            }
         }
 
         return $reply->load('owner');
