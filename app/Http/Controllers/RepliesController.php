@@ -33,18 +33,10 @@ class RepliesController extends Controller
      */
     public function store($channelId, Thread $thread, CreatePostRequest $request)
     {
-//        if (Gate::denies('create', new Reply))
-//        {
-//            return response('You are posting too many times in a row :)', 422);
-//        }
-
-//        $this->validate(request(), ['body' => ['required', new SpamFree]]);
-
         return $thread->addReply([
             'body'    => request('body'),
             'user_id' => auth()->id()
         ])->load('owner');
-
     }
 
     public function update(Reply $reply)
