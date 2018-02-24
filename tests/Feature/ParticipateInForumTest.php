@@ -36,7 +36,7 @@ class ParticipateInForumTest extends TestCase
         $this->signIn();
         $thread = create('App\Thread');
         $reply  = make('App\Reply', ['body' => null]);
-        $this->post($thread->path() . '/replies', $reply->toArray())
+        $this->json('post', $thread->path() . '/replies', $reply->toArray())
             ->assertStatus(422);
     }
 
@@ -138,7 +138,7 @@ class ParticipateInForumTest extends TestCase
         ]);
 
         $this->withExceptionHandling()
-             ->post($thread->path() . '/replies', $reply->toArray())
+             ->json('post', $thread->path() . '/replies', $reply->toArray())
              ->assertStatus(422);
     }
 
