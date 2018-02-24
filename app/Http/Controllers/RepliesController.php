@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreatePostRequest;
 use Gate;
 use App\User;
 use App\Reply;
@@ -30,14 +31,14 @@ class RepliesController extends Controller
      * @param Thread $thread
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store($channelId, Thread $thread)
+    public function store($channelId, Thread $thread, CreatePostRequest $request)
     {
-        if (Gate::denies('create', new Reply))
-        {
-            return response('You are posting too many times in a row :)', 422);
-        }
+//        if (Gate::denies('create', new Reply))
+//        {
+//            return response('You are posting too many times in a row :)', 422);
+//        }
 
-        $this->validate(request(), ['body' => ['required', new SpamFree]]);
+//        $this->validate(request(), ['body' => ['required', new SpamFree]]);
 
         return $thread->addReply([
             'body'    => request('body'),

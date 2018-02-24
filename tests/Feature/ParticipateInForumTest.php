@@ -137,7 +137,7 @@ class ParticipateInForumTest extends TestCase
             'body' => 'Yahoo Customer Support'
         ]);
 
-        $this->withoutExceptionHandling()
+        $this->withExceptionHandling()
              ->post($thread->path() . '/replies', $reply->toArray())
              ->assertStatus(422);
     }
@@ -155,12 +155,12 @@ class ParticipateInForumTest extends TestCase
             'body' => 'Simple Reply'
         ]);
 
-        $this->withoutExceptionHandling()
+        $this->withExceptionHandling()
              ->post($thread->path() . '/replies', $reply->toArray())
              ->assertStatus(200);
 
-        $this->withoutExceptionHandling()
+        $this->withExceptionHandling()
              ->post($thread->path() . '/replies', $reply->toArray())
-             ->assertStatus(422);
+             ->assertStatus(429);
     }
 }
