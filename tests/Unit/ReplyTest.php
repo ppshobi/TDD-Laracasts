@@ -52,8 +52,8 @@ class ReplyTest extends TestCase
      */
     public function it_wraps_mentioned_usernames_within_anchor_tags()
     {
-        $reply = create('App\Reply', ['body' => 'Hello @JaneDoe']);
+        $reply = create('App\Reply', ['body' => 'Hello @JaneDoe.']);
 
-        $this->assertEquals('Hello <a href="/profiles/JaneDoe">@JaneDoe</a>' , $reply->body);
+        $this->assertEquals('Hello <a href="/profiles/JaneDoe">@JaneDoe</a>.' , $reply->body);
     }
 }
