@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Validation\ValidationException;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -48,6 +49,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof ValidationException)
+        {
+            if ($request->expectsjson())
+            {
+                return response('Sorry Validation Failed', 422);
+            }
+        }
         return parent::render($request, $exception);
     }
 }

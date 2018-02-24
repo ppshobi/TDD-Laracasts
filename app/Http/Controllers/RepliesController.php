@@ -32,43 +32,27 @@ class RepliesController extends Controller
      */
     public function store($channelId, Thread $thread)
     {
-        try
+        if (Gate::denies('create', new Reply))
         {
-            if(Gate::denies('create', new Reply))
-            {
-                return response('You are posting too many times in a row :)', 422);
-            }
-
-            $this->validate(request(), ['body' => ['required', new SpamFree]]);
-
-            $reply = $thread->addReply([
-                'body'    => request('body'),
-                'user_id' => auth()->id()
-            ]);
-        }
-        catch (\Exception $e)
-        {
-            return response('Your Reply Could not be saved now', 422);
+            return response('You are posting too many times in a row :)', 422);
         }
 
-        return $reply->load('owner');
+        $this->validate(request(), ['body' => ['required', new SpamFree]]);
+
+        return $thread->addReply([
+            'body'    => request('body'),
+            'user_id' => auth()->id()
+        ])->load('owner');
+
     }
 
     public function update(Reply $reply)
     {
         $this->authorize('update', $reply);
 
-        try
-        {
-            $this->validate(request(), ['body' => ['required', new SpamFree]]);
+        $this->validate(request(), ['body' => ['required', new SpamFree]]);
 
-            $reply->update(request(['body']));
-        }
-        catch (\Exception $e)
-        {
-            return response('Sorry Your Reply Could Not be posted now',422);
-        }
-
+        $reply->update(request(['body']));
     }
 
     public function destroy(Reply $reply)
