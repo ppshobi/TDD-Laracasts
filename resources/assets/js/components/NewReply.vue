@@ -23,12 +23,29 @@
 </template>
 
 <script>
+    import 'at.js';
+    import 'jquery.caret';
     export default {
 
         data(){
             return {
                 body: '',
             }
+        },
+
+        mounted() {
+            $('#body').atwho({
+                at:"@",
+                delay:750,
+                callbacks: {
+                    remoteFilter: function(query, callback) {
+                         console.log('called');
+//                        $.getJson('user.php', {q : query}, function(usernames){
+//                            callback(usernames);
+//                        });
+                    }
+                }
+            });
         },
 
         methods: {
