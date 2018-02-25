@@ -23,4 +23,18 @@ class AddAvatarTest extends TestCase
         $this->json('post', '/api/users/1/avatar')
              ->assertStatus(401);
     }
+
+    /**
+     * @test
+     *
+     */
+    public function a_valid_avatar_must_be_provided()
+    {
+        $this->signIn();
+
+        $this->json('post', '/api/users/' . auth()->id() . '/avatar', ['avatar' => 'not-an-image'])
+             ->assertStatus(422);
+    }
+
+
 }
