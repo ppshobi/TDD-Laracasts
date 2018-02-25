@@ -14,6 +14,7 @@ class UsersController extends Controller
 
         return User::where('name', 'LIKE', "$search%")
             ->take(5)
-            ->get();
+            ->get()
+            ->pluck('name');
     }
 }
