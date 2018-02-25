@@ -39,10 +39,9 @@
                 delay:750,
                 callbacks: {
                     remoteFilter: function(query, callback) {
-                         console.log('called');
-//                        $.getJson('user.php', {q : query}, function(usernames){
-//                            callback(usernames);
-//                        });
+                        $.getJSON('/api/users', {q : query}, function(usernames){
+                            callback(usernames);
+                        });
                     }
                 }
             });
