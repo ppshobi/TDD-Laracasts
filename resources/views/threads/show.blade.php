@@ -13,7 +13,7 @@
                         <div class="level">
                             <span class="flex">
                                 <div class="panel-heading">
-                                    <img src="{{ asset('storage/'. $thread->owner->avatar()) }}" width="50" height="50"
+                                    <img src="{{ $thread->owner->avatar() }}" width="50" height="50"
                                          alt="" class="mr-1">
                                     <a href="{{ route('profile', $thread->owner->name)}}">{{ $thread->owner->name }} Posted:</a>
                                     {{ $thread->title }}
