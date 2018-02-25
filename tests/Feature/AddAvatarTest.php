@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use Storage;
 use Tests\TestCase;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
@@ -36,5 +38,20 @@ class AddAvatarTest extends TestCase
              ->assertStatus(422);
     }
 
+    /**
+     * @test
+     *
+     */
+    public function a_member_can_add_avatar_to_their_profile()
+    {
+        $this->signIn();
 
+        Storage::fake('public');
+
+        $this->json('post', '/api/users/' . auth()->id() . '/avatar', [
+            'avatar' => $file = UploadedFile::fake()->image('avatar.jpg'),
+        ]);
+
+        Storage::disk('public')->assertExists("avatars/" . $file->hashName());
+    }
 }
