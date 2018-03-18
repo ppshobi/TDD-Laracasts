@@ -2,7 +2,7 @@
 <div>
     <h1 v-text="user.name"></h1>
         <form v-if="canUpdate" method="post" enctype="multipart/form-data">
-            <input type="file" name="avatar" accept="image/*"/>
+            <input type="file" name="avatar" accept="image/*" @change="onChange"/>
             <button type="submit" class="btn btn-primary"> Add Avatar</button>
         </form>
     <img :src="avatar" width="200" height="200"/>
@@ -15,6 +15,21 @@
         data(){
             return {
                 avatar: '',
+            }
+        },
+        methods: {
+            onChange(e) {
+                if(! e.target.files.length) return
+
+                let file = e.target.files[0];
+
+                let reader = new FileReader();
+
+                reader.readAsDataURL(file);
+
+                reader.onload = e => {
+                    this.avatar = e.target.result;
+                }
             }
         },
         computed: {
