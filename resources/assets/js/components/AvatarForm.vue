@@ -1,11 +1,13 @@
 <template>
 <div>
-    <h1 v-text="user.name"></h1>
+    <div class="level">
+        <img :src="avatar" width="20" height="20" class="mr-1"/>
+        <h1 v-text="user.name"></h1>
+    </div>
         <form v-if="canUpdate" method="post" enctype="multipart/form-data">
             <image-upload name="avatar" @loaded="onLoad"></image-upload>
             <button type="submit" class="btn btn-primary"> Add Avatar</button>
         </form>
-    <img :src="avatar" width="200" height="200"/>
 </div>
 </template>
 
